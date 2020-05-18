@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang=en>
+<head>
+<title>Ministry of Defence Domain Hijacking</title>
+<meta name=description content="The UK's Ministry of Defence left their secondary domain name vulnerable to domain takeover, despite using it for internal services.">
+<meta property=og:title content="Ministry of Defence Domain Hijacking">
+<meta property=og:description content="The UK's Ministry of Defence left their secondary domain name vulnerable to domain takeover, despite using it for internal services.">
+<meta property=og:url content=https://edwardwall.me/ministry-of-defence-domain-hijacking>
+<meta property=og:image content=https://edwardwall.me/images/fQksRgcy.png>
+<meta property=og:image:width content=1344>
+<meta property=og:image:height content=172>
+<meta property=og:image:alt content="Fastly error: unknown domain: mil.uk. Please check that this domain has been added to a service.">
+<meta property=og:site_name content="Edward Wall">
+<meta property=og:type content=article>
+<meta property=article:published_time content=2019-09-26T09:00:00Z>
+<meta name=twitter:card content=summary_large_image>
+<meta name=twitter:dnt content=on>
+<meta name=twitter:widgets:csp content=on>
+<meta name=twitter:site content=@_edwardwall>
+<meta name=twitter:creator content=@_edwardwall>
+<link rel=canonical href=https://edwardwall.me/ministry-of-defence-domain-hijacking>
+<meta name=viewport content="width=device-width,minimum-scale=1">
+<link rel=stylesheet type=text/css href=https://edwardwall.me/style.css>
+<link rel=icon type=image/png href=https://edwardwall.me/images/icon.png>
+<script type=application/ld+json>
+{
+"@context":"http://schema.org",
+"@type":"Article",
+"url":"https://edwardwall.me/ministry-of-defence-domain-hijacking",
+"mainEntityOfPage":"https://edwardwall.me/ministry-of-defence-domain-hijacking",
+"datePublished":"2019-09-26",
+"dateModified":"2019-09-26",
+"inLanguage":"en",
+"headline":"Ministry of Defence Domain Hijacking",
+"description":"The UK's Ministry of Defence left their secondary domain name vulnerable to domain takeover, despite using it for internal services.",
+"image":"https://edwardwall.me/images/fQksRgcy.png",
+"author":{
+"@type":"Person",
+"name":"Edward Wall",
+"url":"https://edwardwall.me",
+"image":"https://edwardwall.me/images/icon.png",
+"sameAs":[
+"https://github.com/edwardwall",
+"https://twitter.com/_edwardwall",
+"https://www.linkedin.com/in/EdwardWallCS",
+"https://gitlab.com/edwardwall",
+"https://hackerone.com/edwardwall",
+"https://bugcrowd.com/edwardwall"
+]
+},
+"publisher":{
+"@type":"Organization",
+"name":"Edward Wall",
+"url":"https://edwardwall.me",
+"logo":{
+"@type":"ImageObject",
+"url":"https://edwardwall.me/images/icon.png",
+"description":"Edward Wall"
+},
+"sameAs":[
+"https://github.com/edwardwall",
+"https://twitter.com/_edwardwall",
+"https://www.linkedin.com/in/EdwardWallCS",
+"https://gitlab.com/edwardwall",
+"https://hackerone.com/edwardwall",
+"https://bugcrowd.com/edwardwall"
+]
+}
+}
+</script>
+</head>
+<body>
+<a href=https://edwardwall.me><header><div class=width><h1>Edward Wall</h1></div></header></a>
+<main>
+<h2>Ministry of Defence Domain Hijacking</h2>
+<time>26 September 2019</time>
+<p>The UK's Ministry of Defence left their secondary domain name vulnerable to domain takeover, despite using it for internal services.</p>
+<p>Note: This is a post I wrote nearly a year ago but I forgot to release at the time.</p>
+<p>The Ministry of Defence (MOD) has two domain names: mod.uk and mil.uk. They registered mil.uk in 1996 but never used it publically, choosing mod.uk for their online presence. <a href=https://en.wikipedia.org/wiki/.uk#Inactive>According to Wikipedia</a> it is still used on their internal network, mostly for email.</p>
+<p>While looking around government websites I came across this domain. Despite it supposedly being inactive publically this is the response that I received.</p>
+<figure><img src=https://edwardwall.me/images/fQksRgcy.png width=1344 height=172 alt="Fastly error: unknown domain: mil.uk. Please check that this domain has been added to a service."></figure>
+<p>The MOD uses a Content Delivery Network called Fastly and this error message was a clear indication of what was happening. While the DNS records for mil.uk were pointed to Fastly, there was no Fastly account for mil.uk.</p>
+<p>This is a scenario where subdomain takeover, or in this case domain takeover, can occur. The attacker simply needs to sign up for a Fastly account claiming to own mil.uk. Once this is done the attacker may control the content served from the domain. This simple configuration error could potentially have led to a foreign government serving malware from a UK military domain or social engineering MOD personnel and harvesting credentials.</p>
+<p>When Fastly receives a request for a domain they check what the instructions are from the domain owner. In this instance there was no Fastly account claiming mil.uk and therefore it threw an error. It would be very easy to sign up for a Fastly account and take control of the domain's content.</p>
+<p>Upon further investigation I found the source of the problem. The MOD uses Fastly for their primary website (mod.uk) and had created a CNAME record for mil.uk to point to mod.uk. Since it is used on their internal network it is likely no one noticed as no one was accessing it from outside their network and from inside it would use their internal DNS which would have been configured correctly.</p>
+<p>I discovered this issue in April 2018 and my first action was to contact the email listed on the domain registration. My email went unacknowledged and after 4 months of silence the issue had still not been fixed. At this point I contacted the National Cyber Security Centre (NCSC) through their vulnerability disclosure program.</p>
+<p>The NCSC were extremely efficient, taking action on the day of my email. Unfortunately their only available action was to forward the details to the MOD. Again I received no response from the MOD.</p>
+<p>5 months after my second message I again reported the vulnerability through the NCSC in February 2019. I explained the problem and gave a 90 day deadline to fix the issue before I would disclose it publicly.</p>
+<p>In early March I finally received a response from the MOD confirming that the issue was being investigated. It was fixed in the intervening weeks.</p>
+<p>From the first report, it took the MOD over a year to rectify a simple issue which should have been fixed almost instantly. Looking back at the <a href=https://web.archive.org/web/20151015192933/http://mil.uk/>Web Archive</a> shows that the vulnerability had existed since October 2015, more than 2 years before I identified the issue.</p>
+<p></p>
+</main>
+<footer>
+<div class=width><a href=mailto:edward@edwardwall.me>Email</a><a href=https://console.edwardwall.me>Console</a></div>
+</footer>
+</body>
+</html>

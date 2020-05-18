@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang=en>
+<head>
+<title>BrowseAloud users are still vulnerable</title>
+<meta name=description content="In February attackers injected a cryptominer into BrowseAloud's code which then ran on over 4000 websites which used the service. Three months later the vast majority of websites which were affected have not removed their vulnerability.">
+<meta property=og:title content="BrowseAloud users are still vulnerable">
+<meta property=og:description content="In February attackers injected a cryptominer into BrowseAloud's code which then ran on over 4000 websites which used the service. Three months later the vast majority of websites which were affected have not removed their vulnerability.">
+<meta property=og:url content=https://edwardwall.me/browsealoud-users-are-still-vulnerable>
+<meta property=og:image content=https://edwardwall.me/images/acgElGwp.png>
+<meta property=og:image:width content=1278>
+<meta property=og:image:height content=139>
+<meta property=og:image:alt content="HTML Script tag referencing BrowseAloud with an integrity attribute">
+<meta property=og:site_name content="Edward Wall">
+<meta property=og:type content=article>
+<meta property=article:published_time content=2018-05-04T09:00:00Z>
+<meta name=twitter:card content=summary_large_image>
+<meta name=twitter:dnt content=on>
+<meta name=twitter:widgets:csp content=on>
+<meta name=twitter:site content=@_edwardwall>
+<meta name=twitter:creator content=@_edwardwall>
+<link rel=canonical href=https://edwardwall.me/browsealoud-users-are-still-vulnerable>
+<meta name=viewport content="width=device-width,minimum-scale=1">
+<link rel=stylesheet type=text/css href=https://edwardwall.me/style.css>
+<link rel=icon type=image/png href=https://edwardwall.me/images/icon.png>
+<script type=application/ld+json>
+{
+"@context":"http://schema.org",
+"@type":"Article",
+"url":"https://edwardwall.me/browsealoud-users-are-still-vulnerable",
+"mainEntityOfPage":"https://edwardwall.me/browsealoud-users-are-still-vulnerable",
+"datePublished":"2018-05-04",
+"dateModified":"2018-05-04",
+"inLanguage":"en",
+"headline":"BrowseAloud users are still vulnerable",
+"description":"In February attackers injected a cryptominer into BrowseAloud's code which then ran on over 4000 websites which used the service. Three months later the vast majority of websites which were affected have not removed their vulnerability.",
+"image":"https://edwardwall.me/images/acgElGwp.png",
+"author":{
+"@type":"Person",
+"name":"Edward Wall",
+"url":"https://edwardwall.me",
+"image":"https://edwardwall.me/images/icon.png",
+"sameAs":[
+"https://github.com/edwardwall",
+"https://twitter.com/_edwardwall",
+"https://www.linkedin.com/in/EdwardWallCS",
+"https://gitlab.com/edwardwall",
+"https://hackerone.com/edwardwall",
+"https://bugcrowd.com/edwardwall"
+]
+},
+"publisher":{
+"@type":"Organization",
+"name":"Edward Wall",
+"url":"https://edwardwall.me",
+"logo":{
+"@type":"ImageObject",
+"url":"https://edwardwall.me/images/icon.png",
+"description":"Edward Wall"
+},
+"sameAs":[
+"https://github.com/edwardwall",
+"https://twitter.com/_edwardwall",
+"https://www.linkedin.com/in/EdwardWallCS",
+"https://gitlab.com/edwardwall",
+"https://hackerone.com/edwardwall",
+"https://bugcrowd.com/edwardwall"
+]
+}
+}
+</script>
+</head>
+<body>
+<a href=https://edwardwall.me><header><div class=width><h1>Edward Wall</h1></div></header></a>
+<main>
+<h2>BrowseAloud users are still vulnerable</h2>
+<time>04 May 2018</time>
+<p>In February attackers injected a cryptominer into BrowseAloud's code which then ran on over 4000 websites which used the service. Three months later the vast majority of websites which were affected have not removed their vulnerability.</p>
+<h3 id=background>Background</h3>
+<p>On 11 February Scott Helme discovered that the UK's Information Commissioner's Office was running a cryptominer on their website.</p>
+<blockquote>Ummm, so yeah, this is *bad*. I just had @phat_hobbit point out that @ICOnews has a cryptominer installed on their site...</blockquote>
+<p>This was the first in a string of tweets as he discovered more and more sites from all around the world. Targets included the National Health Service in the UK, Courts in the USA and local government websites from multiple countries.</p>
+<p>The issue was that attackers had compromised the BrowseAloud service and modified the source code to include a cryptominer. Because all these websites were embedding the script directly into their site they were all spreading the cryptominer.</p>
+<p>More details about the attack can be found in <a href=https://scotthelme.co.uk/protect-site-from-cryptojacking-csp-sri/>Scott Helme's blog post</a>.</p>
+<h3 id=preventative-measures>Preventative Measures</h3>
+<p>There are two main ways in which websites can protect themselves from this attack: Sub Resource Integrity (SRI) and Content Security Policy (CSP).</p>
+<p>SRI uses an integrity attribute on the script tag. The integrity attribute contains a hash of the file. When the file is loaded by the browser it hashes the file and compares the hash to the hash in the integrity attribute. If they match, the file runs. This prevents a file which has been modified from running in the browser and therefore stops this attack instantly.</p>
+<figure><img src=https://edwardwall.me/images/acgElGwp.png width=1278 height=139 alt="HTML Script tag referencing BrowseAloud with an integrity attribute"></figure>
+<p>CSP contains a whitelist of sources from which scripts may be loaded. Since the cryptominer's source would not be in the list, the script would not be loaded. This would have prevented the browser from loading the cryptominer from the third party, which is what happened in the attack.</p>
+<p>BrowseAloud also enables you to embed specific versions of the script. The idea behind this is that you can use a specific version of the script which will never change and therefore the integrity hash will remain the same. If you do not use a specific version, then when the script is updated it will stop working on your website.</p>
+<h3 id=the-analysis>The Analysis</h3>
+<p>Three months after the incident, I have conducted some research on the websites which are still running BrowseAloud.</p>
+<p>I was able to get a list of 289 domains which use BrowseAloud from <a href=https://publicwww.com/websites/%22browsealoud.com%2Fplus%2Fscripts%2F%22/>PublicWWW</a> and analysed how many were using SRI and/or CSP to protect their users from this attack.</p>
+<p>281 of the 289 websites (97%) do not use SRI or CSP and are therefore still vulnerable to the exact same attack. A further 6 websites use a CSP but no SRI which would protect them from this specific attack. While a CSP is useful against this attack, if the attackers upload the script to browsealoud.com then they would be able to run it, so CSP does not give full protection from an attack like this.</p>
+<p>This means that in total, 99% of the sites I tested are vulnerable to a Cross Site Scripting attack with just 2 websites actually implementing Sub Resource Integrity to fully protect their users.</p>
+<p>Frustratingly 29 websites (10%) used the versioned script but none of them included an integrity attribute. One key reason for having versions is that they will not change and therefore the integrity hash will remain constant and not break the site.</p>
+<p>14 websites (4%) had implemented a CSP but 8 of them were too broad and would not prevent a script loading from a third party leaving only 6 with a useful CSP as mentioned above.</p>
+<p>According to PublicWWW there are 5020 sites using BrowseAloud. Extrapolating 97% out means that there are around 4880 websites running BrowseAloud which are vulnerable to an attack which has already happened.</p>
+<p></p>
+</main>
+<footer>
+<div class=width><a href=mailto:edward@edwardwall.me>Email</a><a href=https://console.edwardwall.me>Console</a></div>
+</footer>
+</body>
+</html>

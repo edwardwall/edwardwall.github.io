@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang=en>
+<head>
+<title>Channel 4 Data Leak</title>
+<meta name=description content="Until recently Channel 4 was leaking the name, age and gender of every account holder by sending it over HTTP as a base 64 encoded JSON string.">
+<meta property=og:title content="Channel 4 Data Leak">
+<meta property=og:description content="Until recently Channel 4 was leaking the name, age and gender of every account holder by sending it over HTTP as a base 64 encoded JSON string.">
+<meta property=og:url content=https://edwardwall.me/channel-4-data-leak>
+<meta property=og:image content=https://edwardwall.me/images/HweNT0gl.png>
+<meta property=og:image:width content=1712>
+<meta property=og:image:height content=608>
+<meta property=og:image:alt content="All 4 Logo">
+<meta property=og:site_name content="Edward Wall">
+<meta property=og:type content=article>
+<meta property=article:published_time content=2019-04-17T09:00:00Z>
+<meta name=twitter:card content=summary_large_image>
+<meta name=twitter:dnt content=on>
+<meta name=twitter:widgets:csp content=on>
+<meta name=twitter:site content=@_edwardwall>
+<meta name=twitter:creator content=@_edwardwall>
+<link rel=canonical href=https://edwardwall.me/channel-4-data-leak>
+<meta name=viewport content="width=device-width,minimum-scale=1">
+<link rel=stylesheet type=text/css href=https://edwardwall.me/style.css>
+<link rel=icon type=image/png href=https://edwardwall.me/images/icon.png>
+<script type=application/ld+json>
+{
+"@context":"http://schema.org",
+"@type":"Article",
+"url":"https://edwardwall.me/channel-4-data-leak",
+"mainEntityOfPage":"https://edwardwall.me/channel-4-data-leak",
+"datePublished":"2019-04-17",
+"dateModified":"2019-04-17",
+"inLanguage":"en",
+"headline":"Channel 4 Data Leak",
+"description":"Until recently Channel 4 was leaking the name, age and gender of every account holder by sending it over HTTP as a base 64 encoded JSON string.",
+"image":"https://edwardwall.me/images/HweNT0gl.png",
+"author":{
+"@type":"Person",
+"name":"Edward Wall",
+"url":"https://edwardwall.me",
+"image":"https://edwardwall.me/images/icon.png",
+"sameAs":[
+"https://github.com/edwardwall",
+"https://twitter.com/_edwardwall",
+"https://www.linkedin.com/in/EdwardWallCS",
+"https://gitlab.com/edwardwall",
+"https://hackerone.com/edwardwall",
+"https://bugcrowd.com/edwardwall"
+]
+},
+"publisher":{
+"@type":"Organization",
+"name":"Edward Wall",
+"url":"https://edwardwall.me",
+"logo":{
+"@type":"ImageObject",
+"url":"https://edwardwall.me/images/icon.png",
+"description":"Edward Wall"
+},
+"sameAs":[
+"https://github.com/edwardwall",
+"https://twitter.com/_edwardwall",
+"https://www.linkedin.com/in/EdwardWallCS",
+"https://gitlab.com/edwardwall",
+"https://hackerone.com/edwardwall",
+"https://bugcrowd.com/edwardwall"
+]
+}
+}
+</script>
+</head>
+<body>
+<a href=https://edwardwall.me><header><div class=width><h1>Edward Wall</h1></div></header></a>
+<main>
+<h2>Channel 4 Data Leak</h2>
+<time>17 April 2019</time>
+<p>Until recently Channel 4 was leaking the name, age and gender of every account holder by sending it over HTTP as a base 64 encoded JSON string.</p>
+<p>Channel 4 run an online streaming service called All 4. All 4 requires you to be logged in to an account in order to watch shows.</p>
+<figure><img src=https://edwardwall.me/images/HweNT0gl.png width=1712 height=608 alt="All 4 Logo"></figure>
+<p>When you log into your All 4 account, the server sets a cookie named 'C4_Identity'. This cookie contains a base 64 encoded JSON string with a number of parameters similar to the example shown below, although I have obfuscated some of the data to protect my privacy.</p>
+<code>{"displayName":"Edward", "gender":"MALE", "age":"00", "userId":"00000000-0000-0000-0000-000000000000", "type":"C4", "rememberMe":"true", "created":"1520000000000", "hash":"000000000000000", "addressCaptured":"true"}</code>
+<p>The first three parameters are the most critical: name, gender and age. These pieces of information are not extremely sensitive data but it still represents a loss of personal data.</p>
+<p>The login and authentication is all done over HTTPS but the server then set this cookie and redirected back to their insecure homepage. This meant that the cookie was send over HTTP in full view of anyone on the network.</p>
+<p>Having discovered this I contacted Channel 4, following the ICO's advice regarding concerns about personal data. Channel 4 initially responded confirming their receipt of my concern, but I heard nothing after that. After 30 days of silence I contacted them again and again I received a confirmation that they had received my concern and were investigating it.</p>
+<p>After this I heard nothing for three months until I once again contacted them about my concern.</p>
+<p>Since my initial complain channel4.com has moved to HTTPS, which is excellent. Their users are now be able to communicate securely with the server and keep information such as this confidential.</p>
+<p>However the C4_Identity cookie which contained the data does not have the Secure flag set on it, which would prevent the cookie being sent over HTTP. The website also does not use HSTS therefore because the Secure flag is not set if a user who has previously logged in goes to http://channel4.com the cookie will be sent as part of the request.</p>
+<p></p>
+</main>
+<footer>
+<div class=width><a href=mailto:edward@edwardwall.me>Email</a><a href=https://console.edwardwall.me>Console</a></div>
+</footer>
+</body>
+</html>

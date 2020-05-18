@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang=en>
+<head>
+<title>Cloudflare SAN Scan</title>
+<meta name=description content="Websites on the same Cloudflare account will share a TLS certificate. Cloudflare SAN Scan analyses past TLS certificates and finds other domains which are on the same Cloudflare account.">
+<meta property=og:title content="Cloudflare SAN Scan">
+<meta property=og:description content="Websites on the same Cloudflare account will share a TLS certificate. Cloudflare SAN Scan analyses past TLS certificates and finds other domains which are on the same Cloudflare account.">
+<meta property=og:url content=https://edwardwall.me/cloudflare-san-scan>
+<meta property=og:image content=https://edwardwall.me/images/iT8RijxM.png>
+<meta property=og:image:width content=405>
+<meta property=og:image:height content=510>
+<meta property=og:image:alt content="Inspecting a TLS certificate">
+<meta property=og:site_name content="Edward Wall">
+<meta property=og:type content=article>
+<meta property=article:published_time content=2018-03-02T09:00:00Z>
+<meta name=twitter:card content=summary_large_image>
+<meta name=twitter:dnt content=on>
+<meta name=twitter:widgets:csp content=on>
+<meta name=twitter:site content=@_edwardwall>
+<meta name=twitter:creator content=@_edwardwall>
+<link rel=canonical href=https://edwardwall.me/cloudflare-san-scan>
+<meta name=viewport content="width=device-width,minimum-scale=1">
+<link rel=stylesheet type=text/css href=https://edwardwall.me/style.css>
+<link rel=icon type=image/png href=https://edwardwall.me/images/icon.png>
+<script type=application/ld+json>
+{
+"@context":"http://schema.org",
+"@type":"Article",
+"url":"https://edwardwall.me/cloudflare-san-scan",
+"mainEntityOfPage":"https://edwardwall.me/cloudflare-san-scan",
+"datePublished":"2018-03-02",
+"dateModified":"2018-03-02",
+"inLanguage":"en",
+"headline":"Cloudflare SAN Scan",
+"description":"Websites on the same Cloudflare account will share a TLS certificate. Cloudflare SAN Scan analyses past TLS certificates and finds other domains which are on the same Cloudflare account.",
+"image":"https://edwardwall.me/images/iT8RijxM.png",
+"author":{
+"@type":"Person",
+"name":"Edward Wall",
+"url":"https://edwardwall.me",
+"image":"https://edwardwall.me/images/icon.png",
+"sameAs":[
+"https://github.com/edwardwall",
+"https://twitter.com/_edwardwall",
+"https://www.linkedin.com/in/EdwardWallCS",
+"https://gitlab.com/edwardwall",
+"https://hackerone.com/edwardwall",
+"https://bugcrowd.com/edwardwall"
+]
+},
+"publisher":{
+"@type":"Organization",
+"name":"Edward Wall",
+"url":"https://edwardwall.me",
+"logo":{
+"@type":"ImageObject",
+"url":"https://edwardwall.me/images/icon.png",
+"description":"Edward Wall"
+},
+"sameAs":[
+"https://github.com/edwardwall",
+"https://twitter.com/_edwardwall",
+"https://www.linkedin.com/in/EdwardWallCS",
+"https://gitlab.com/edwardwall",
+"https://hackerone.com/edwardwall",
+"https://bugcrowd.com/edwardwall"
+]
+}
+}
+</script>
+</head>
+<body>
+<a href=https://edwardwall.me><header><div class=width><h1>Edward Wall</h1></div></header></a>
+<main>
+<h2>Cloudflare SAN Scan</h2>
+<time>02 March 2018</time>
+<p>Websites on the same Cloudflare account will share a TLS certificate. Cloudflare SAN Scan analyses past TLS certificates and finds other domains which are on the same Cloudflare account.</p>
+<p><a href=https://www.cloudflare.com>Cloudflare</a> is a Content Delivery Network which provides benefits above just content delivery. Cloudflare offers excellent DNS and free TLS certificates for all websites, even on the free plan.</p>
+<figure><img src=https://edwardwall.me/images/iT8RijxM.png width=405 height=510 alt="Inspecting a TLS certificate"></figure>
+<p>When you inspect a certificate of a website using Cloudflare you will see in the Subject Alternative Name section that it has multiple different domains assigned to the same certificate. Cloudflare assigns up to 50 domains to a single TLS certificate.</p>
+<p>If you add multiple domains to a Cloudflare account, they will all be assigned to the same certificate, and that will be publically visible through the Subject Alternative Name (SAN) of the certificate.</p>
+<p>By analysing past TLS certificates, Cloudflare SAN Scan is able to determine which other domains are consistently showing in a domain's certificate. If they appear over a considerable amount of time it is likely that they are attached to the same Cloudflare account. Although unrelated domains will show on a domain's certificate, over time they are likely to move away and will not remain on the same certificate.</p>
+<p><a href=https://github.com/edwardwall/cloudflare-san-scan>The source for Cloudflare SAN Scan is available on GitHub</a>.</p>
+<p></p>
+</main>
+<footer>
+<div class=width><a href=mailto:edward@edwardwall.me>Email</a><a href=https://console.edwardwall.me>Console</a></div>
+</footer>
+</body>
+</html>

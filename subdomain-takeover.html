@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang=en>
+<head>
+<title>Subdomain Takeover</title>
+<meta name=description content="Subdomain Takeover (or Subdomain Hijacking) is the act of taking control of a subdomain's content. It can occur when a subdomain which was using a third party service stops using the service but does not remove the DNS records pointing to the third party.">
+<meta property=og:title content="Subdomain Takeover">
+<meta property=og:description content="Subdomain Takeover (or Subdomain Hijacking) is the act of taking control of a subdomain's content. It can occur when a subdomain which was using a third party service stops using the service but does not remove the DNS records pointing to the third party.">
+<meta property=og:url content=https://edwardwall.me/subdomain-takeover>
+<meta property=og:image content=https://edwardwall.me/images/xDsjFiej.png>
+<meta property=og:image:width content=769>
+<meta property=og:image:height content=386>
+<meta property=og:image:alt content="There isn't a GitHub Pages site here">
+<meta property=og:site_name content="Edward Wall">
+<meta property=og:type content=article>
+<meta property=article:published_time content=2018-11-09T09:00:00Z>
+<meta name=twitter:card content=summary_large_image>
+<meta name=twitter:dnt content=on>
+<meta name=twitter:widgets:csp content=on>
+<meta name=twitter:site content=@_edwardwall>
+<meta name=twitter:creator content=@_edwardwall>
+<link rel=canonical href=https://edwardwall.me/subdomain-takeover>
+<meta name=viewport content="width=device-width,minimum-scale=1">
+<link rel=stylesheet type=text/css href=https://edwardwall.me/style.css>
+<link rel=icon type=image/png href=https://edwardwall.me/images/icon.png>
+<script type=application/ld+json>
+{
+"@context":"http://schema.org",
+"@type":"Article",
+"url":"https://edwardwall.me/subdomain-takeover",
+"mainEntityOfPage":"https://edwardwall.me/subdomain-takeover",
+"datePublished":"2018-11-09",
+"dateModified":"2018-11-09",
+"inLanguage":"en",
+"headline":"Subdomain Takeover",
+"description":"Subdomain Takeover (or Subdomain Hijacking) is the act of taking control of a subdomain's content. It can occur when a subdomain which was using a third party service stops using the service but does not remove the DNS records pointing to the third party.",
+"image":"https://edwardwall.me/images/xDsjFiej.png",
+"author":{
+"@type":"Person",
+"name":"Edward Wall",
+"url":"https://edwardwall.me",
+"image":"https://edwardwall.me/images/icon.png",
+"sameAs":[
+"https://github.com/edwardwall",
+"https://twitter.com/_edwardwall",
+"https://www.linkedin.com/in/EdwardWallCS",
+"https://gitlab.com/edwardwall",
+"https://hackerone.com/edwardwall",
+"https://bugcrowd.com/edwardwall"
+]
+},
+"publisher":{
+"@type":"Organization",
+"name":"Edward Wall",
+"url":"https://edwardwall.me",
+"logo":{
+"@type":"ImageObject",
+"url":"https://edwardwall.me/images/icon.png",
+"description":"Edward Wall"
+},
+"sameAs":[
+"https://github.com/edwardwall",
+"https://twitter.com/_edwardwall",
+"https://www.linkedin.com/in/EdwardWallCS",
+"https://gitlab.com/edwardwall",
+"https://hackerone.com/edwardwall",
+"https://bugcrowd.com/edwardwall"
+]
+}
+}
+</script>
+</head>
+<body>
+<a href=https://edwardwall.me><header><div class=width><h1>Edward Wall</h1></div></header></a>
+<main>
+<h2>Subdomain Takeover</h2>
+<time>09 November 2018</time>
+<p>Subdomain Takeover (or Subdomain Hijacking) is the act of taking control of a subdomain's content. It can occur when a subdomain which was using a third party service stops using the service but does not remove the DNS records pointing to the third party.</p>
+<h3 id=the-setup>The Setup</h3>
+<p>You want to host a service on your website, maybe a blog or a shop. You might decide to use a service to run it for you. You create DNS records for your subdomain to point to the service and when the service receives a request from your subdomain they return your page.</p>
+<p>When you want to stop using the service you might delete your account with the service, but you must also delete the DNS records pointing to the service.</p>
+<p>If you do not, users requesting your subdomain will still get sent to the service, which will return an error because they do not have any accounts with your subdomain assigned to them. For example if the service is GitHub, you would see the following page.</p>
+<figure><img src=https://edwardwall.me/images/xDsjFiej.png width=769 height=386 alt="There isn't a GitHub Pages site here"></figure>
+<h3 id=the-problem>The Problem</h3>
+<p>There is nothing stopping me or anyone else from signing up with the service and claiming your subdomain. Services like this tend not to do any verficiation that you actually own the domain.</p>
+<p>After doing this I can serve content from your subdomain. This means that I could take advantage of your website's reputation to spread malware or redirect all traffic to your competitor.</p>
+<h3 id=the-solution>The Solution</h3>
+<p>When using third party services you must be careful. When you stop using a service, simply deleting your account is not enough. You must also ensure that all DNS records pointing to the service are removed or changed.</p>
+<p></p>
+</main>
+<footer>
+<div class=width><a href=mailto:edward@edwardwall.me>Email</a><a href=https://console.edwardwall.me>Console</a></div>
+</footer>
+</body>
+</html>
