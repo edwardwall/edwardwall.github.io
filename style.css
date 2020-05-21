@@ -25,11 +25,14 @@ font-size:3em;
 margin:0;
 line-height:0.9em;
 }
+h1 a{
+color:white;
+}
 .what{
 font-size:1.5em;
 margin-top:.5em;
 }
-header a,footer a{
+header .links a,footer a{
 background-color:white;
 color:#444;
 padding:.5em 1em;
@@ -37,7 +40,7 @@ display:inline-block;
 border-radius:.25em;
 line-height:1em;
 }
-header a{
+header .links a{
 margin:1em .5em 0 .5em;
 }
 footer a{
@@ -101,7 +104,7 @@ header{
 padding:2.5em 0;
 text-align:left;
 }
-header a{
+header .links a{
 margin:.5em 1em 0 0;
 }
 footer{
